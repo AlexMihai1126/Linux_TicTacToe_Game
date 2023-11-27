@@ -1,0 +1,2 @@
+g++ main.cpp -o x_si_o -lncurses
+./x_si_o
