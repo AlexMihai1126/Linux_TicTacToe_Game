@@ -21,7 +21,7 @@ void deseneazaTablaJoc(char tablaJoc[3][3]) {
 }
 
 bool verificaCastig(char tablaJoc[3][3], char jucatorId) {
-    for (int i = 0; i < 3; ++i) {
+    for (int i = 0; i < 3; i++) {
         if ((tablaJoc[i][0] == jucatorId && tablaJoc[i][1] == jucatorId && tablaJoc[i][2] == jucatorId) ||
             (tablaJoc[0][i] == jucatorId && tablaJoc[1][i] == jucatorId && tablaJoc[2][i] == jucatorId)) {
             return true;
@@ -48,7 +48,7 @@ int main() {
     keypad(stdscr, TRUE);
     raw();
     noecho();
-    mousemask(ALL_MOUSE_EVENTS, nullptr);
+    mousemask(ALL_MOUSE_EVENTS, nullptr); //configuram NCurses sa foloseasca mouse-ul
 
     while (true) {
         deseneazaTablaJoc(tablaJoc);
@@ -59,7 +59,7 @@ int main() {
         if (ch == KEY_MOUSE) {
             if (getmouse(&miscareMouse) == OK) {
                 randTabla = miscareMouse.y / 2;
-                coloanaTabla = miscareMouse.x / 4;
+                coloanaTabla = miscareMouse.x / 4; //trecem in indici pt matricea care memoreaza jocul
 
                 if (randTabla >= 0 && randTabla < 3 && coloanaTabla >= 0 && coloanaTabla < 3 &&
                     tablaJoc[randTabla][coloanaTabla] == ' ') {
@@ -71,7 +71,7 @@ int main() {
                         printw("Apasa orice tasta pentru a iesi din program.\n");
                         refresh();
                         getch();
-                        break;
+                        break; //verificam daca jucatorul curent a castigat
                     }
 
                     bool remiza = true;
@@ -80,7 +80,7 @@ int main() {
                             if (j == ' ') {
                                 remiza = false;
                                 break;
-                            }
+                            } //plecam de la presupunerea ca jocul este remiza, daca gasim cel putin o casuta libera inseamna ca jocul inca nu s-a terminat
                         }
                         if (!remiza) {
                             break;
@@ -94,7 +94,7 @@ int main() {
                         refresh();
                         getch();
                         break;
-                    }
+                    } //in caz de remiza jocul se incheie
 
                     jucatorCurent = (jucatorCurent == 'X') ? 'O' : 'X'; //schimbam jucatorul curent dupa o runda.
                 }
