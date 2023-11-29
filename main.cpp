@@ -49,30 +49,27 @@ int main() {
 
     while (true) {
         deseneazaTablaJoc(tablaJoc);
-        printw("Player %c's turn. Click on a cell to make a move.\n", jucatorCurent);
+        printw("Randul jucatorului %c. Apasa pe o casuta pentru a face o mutare.\n", jucatorCurent);
         refresh();
 
-        int ch = getch(); //citeste inputurile si verifica daca este mouse
+        int ch = getch(); //citeste inputurile si verifica daca este de la mouse
         if (ch == KEY_MOUSE) {
             if (getmouse(&miscareMouse) == OK) {
-                randTabla = miscareMouse.y / 2; // Each randTabla is separated by 2 lines
-                coloanaTabla = miscareMouse.x / 4; // Each column is separated by 4 characters
+                randTabla = miscareMouse.y / 2;
+                coloanaTabla = miscareMouse.x / 4;
 
-                // Check if the selected cell is empty
                 if (randTabla >= 0 && randTabla < 3 && coloanaTabla >= 0 && coloanaTabla < 3 && tablaJoc[randTabla][coloanaTabla] == ' ') {
-                    tablaJoc[randTabla][coloanaTabla] = jucatorCurent;
+                    tablaJoc[randTabla][coloanaTabla] = jucatorCurent; //vedem daca casuta in care vrem sa inseram este libera
 
-                    // Check for a win
                     if (verificaCastig(tablaJoc, jucatorCurent)) {
                         deseneazaTablaJoc(tablaJoc);
-                        printw("Player %c wins!\n", jucatorCurent);
-                        printw("Press any key to exit.\n");
+                        printw("A castigat %c !\n", jucatorCurent);
+                        printw("Apasa orice tasta pentru a iesi din program.\n");
                         refresh();
                         getch();
                         break;
                     }
 
-                    // Check for a tie
                     bool remiza = true;
                     for (auto & i : tablaJoc) {
                         for (char j : i) {
@@ -88,21 +85,19 @@ int main() {
 
                     if (remiza) {
                         deseneazaTablaJoc(tablaJoc);
-                        printw("It's a tie!\n");
-                        printw("Press any key to exit.\n");
+                        printw("Este remiza!\n");
+                        printw("Apasa orice tasta pentru a iesi din program.\n");
                         refresh();
                         getch();
                         break;
                     }
 
-                    // Switch to the other player
-                    jucatorCurent = (jucatorCurent == 'X') ? 'O' : 'X';
+                    jucatorCurent = (jucatorCurent == 'X') ? 'O' : 'X'; //schimbam jucatorul curent dupa o runda.
                 }
             }
         }
     }
 
-    // Clean up ncurses
     endwin();
 
     return 0;
