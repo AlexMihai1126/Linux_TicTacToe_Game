@@ -1,3 +1,4 @@
+//TEMA 1 SO, ANUL 3, MIHAI ALEXANDRU-MARIO GRUPA 363
 #include <ncurses.h>
 
 void deseneazaTablaJoc(char tablaJoc[3][3]) {
