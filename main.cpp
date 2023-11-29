@@ -36,7 +36,9 @@ bool verificaCastig(char tablaJoc[3][3], char jucatorId) {
 }
 
 int main() {
-    char tablaJoc[3][3] = {{' ', ' ', ' '}, {' ', ' ', ' '}, {' ', ' ', ' '}};
+    char tablaJoc[3][3] = {{' ', ' ', ' '},
+                           {' ', ' ', ' '},
+                           {' ', ' ', ' '}};
     char jucatorCurent = 'X';
     int randTabla, coloanaTabla;
     MEVENT miscareMouse;
@@ -58,7 +60,8 @@ int main() {
                 randTabla = miscareMouse.y / 2;
                 coloanaTabla = miscareMouse.x / 4;
 
-                if (randTabla >= 0 && randTabla < 3 && coloanaTabla >= 0 && coloanaTabla < 3 && tablaJoc[randTabla][coloanaTabla] == ' ') {
+                if (randTabla >= 0 && randTabla < 3 && coloanaTabla >= 0 && coloanaTabla < 3 &&
+                    tablaJoc[randTabla][coloanaTabla] == ' ') {
                     tablaJoc[randTabla][coloanaTabla] = jucatorCurent; //vedem daca casuta in care vrem sa inseram este libera
 
                     if (verificaCastig(tablaJoc, jucatorCurent)) {
@@ -71,8 +74,8 @@ int main() {
                     }
 
                     bool remiza = true;
-                    for (auto & i : tablaJoc) {
-                        for (char j : i) {
+                    for (auto &i: tablaJoc) {
+                        for (char j: i) {
                             if (j == ' ') {
                                 remiza = false;
                                 break;
